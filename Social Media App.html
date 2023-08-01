@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media App</title>
+    <script src="https://kit.fontawesome.com/ae2012805a.js" crossorigin="anonymous"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root{
+            --body-color: #efefef;
+            --nav-color: #1876f2;
+            --bg-color: #fff;
+            --color: #626262;
+        }
+        body{
+            background: var(--body-color);
+            transition: background 0.3s;
+        }
+        .dark_theme{
+            --body-color: #0a0a0a;
+            --nav-color: #000;
+            --bg-color: #000;
+            --color: #fff;
+            --nav-color: rgb(161, 157, 157);
+        }
+        nav{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--nav-color);
+            padding: 5px 5%;
+            position: sticky;
+            top: 0px;
+            z-index: 1000;
+        }
+        .nav_left i{
+            font-size: 55px;
+            color: white;
+            margin-right: 80px;
+        }
+        .nav_left, .nav_right{
+            display: flex;
+            align-items: center;
+
+        }
+        .nav_left ul li{
+            list-style: none;
+            display: inline-block;
+
+        }
+        .nav_left ul li i{
+            font-size: 25px;
+            margin: 0 20px;
+            cursor: pointer;
+
+        }
+        .usericon{
+            margin-left: 40px;
+            cursor: pointer;
+        }
+        .usericon img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+        }
+        .searchbox{
+            background: #efefef;
+            width: 350px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .searchbox input{
+            width: 100%;
+            background: transparent;
+            padding: 10px;
+            outline: none;
+            border: 0;
+            font-size: 15px;
+            color: var(--color);
+            font-weight: bold;
+        }
+        .online{
+            position: relative;
+        }
+        .online::after{
+            content: "";
+            height: 7px;
+            width: 7px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: greenyellow;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .container{
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 5%;
+        }
+        .left_side_bar{
+            flex-basis: 25%;
+            position: sticky;
+            top: 70px;
+            align-self: flex-start;
+        }
+        .right_side_bar{
+            flex-basis: 25%;
+            position: sticky;
+            top: 70px;
+            align-self: flex-start;
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 4px;
+            color: var(--color);
+
+        }
+        .main_content{
+            flex-basis: 47%;
+        }
+
+        .imp_link a{
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: var(--color);
+            width: fit-content;
+
+        }
+        .imp_link a:last-child{
+            color: #1876f2;
+            font-weight: bold;
+
+        }
+        .imp_link a i{
+            font-size: 30px;
+            color: black;
+            margin-right: 25px;
+        }
+        .imp_link{
+            border-bottom: 1px solid #ccc;
+        }
+        .imp_link_bg{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgb(216, 216, 216);
+            height: 55px;
+            width: 55px;
+            border-radius: 50%;
+        }
+        .shortcut_link a{
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            color: var(--color);
+            width: fit-content;
+        }
+        .shortcut_link a img{
+            width: 50px;
+            height: 35px;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .shortcut_link p{
+            margin: 25px 0;
+            color: var(--color);
+            font-weight: bold;
+        }
+        .side_bar_title{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+        .side_bar_title h4{
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .side_bar_title a{
+            text-decoration: none;
+            color: #1876f2;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .event{
+            display: flex;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .left_event{
+            border-radius: 10px;
+            height: 60px;
+            width: 65px;
+            margin-right: 15px;
+            padding-top: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .event p{
+            font-size: 14px;
+        }
+        .eventc a{
+            font-size: 14px;
+            text-decoration: none;
+            color: #1876f2;
+        }
+        .left_event span{
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+            background: #1876f2;
+            color: white;
+            font-size: 12px;
+            padding: 4px 0;
+        }
+        .right_event h4{
+            margin-bottom: 3px;
+        }
+        .right_event p{
+            margin-bottom: 3px;
+        }
+        .right_event p i{
+            margin-right: 4px;
+        }
+        .right_event a{
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .sidebar_ads{
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .online_list{
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .online_list .online img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+        .online_list .online{
+            margin-right: 15px;
+        }
+        .online_list .online::after{
+            top: unset;
+            bottom: 5px;
+        }
+        .story_gallery{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .story{
+            flex-basis: 18%;
+            padding-top: 38%;
+            position: relative;
+            background-position: center;
+            background-size: cover;
+            border-radius: 10px;
+        }
+        .story1{background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5)) ,url('https://cdn.pixabay.com/photo/2019/07/13/23/53/spring-equinox-4335941_640.jpg');}
+        .story2{background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5)) ,url('https://cdn.pixabay.com/photo/2016/10/12/02/56/girl-1733352_640.jpg');}
+        .story3{background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5)) ,url('https://cdn.pixabay.com/photo/2017/11/23/03/17/christmas-2971961_640.jpg');}
+        .story4{background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5)) ,url('https://cdn.pixabay.com/photo/2017/12/22/14/42/girl-3033718_640.jpg');}
+        .story5{background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5)) ,url('https://cdn.pixabay.com/photo/2018/03/06/22/57/portrait-3204843_640.jpg');}
+        .story i{
+            position: absolute;
+            font-size: 40px;
+            color: blue;
+            border-radius: 50%;
+            border: 5px solid white;
+            top: 60%;
+            left: 25%;
+            background-color: white;
+        }
+        .story img{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 5px solid white;
+            top: 10px;
+            left: 10px;
+        }
+        .story p{
+            position: absolute;
+            bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            color: white;
+        }
+        .write_post_container{
+            width: 100%;
+            background: var(--bg-color);
+            border-radius: 6px;
+            padding: 20px;
+            color: var(--color);
+        }
+        .user_profile{
+            display: flex;
+            align-items: center;
+        }
+        .user_profile img{
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .user_profile p{
+            font-weight: bold;
+        }
+        .user_profile small{
+            font-weight: bold;
+        }
+        .post_input_container{
+            padding-left: 55px;
+            padding-top: 20px;
+        }
+        .post_input_container textarea{
+            width: 100%;
+            border: 0;
+            outline: none;
+            border-bottom: 1px solid #ccc;
+            resize: none;
+            font-weight: bold;
+            background: var(--bg-color);
+        }
+        .add_post_link{
+            display: flex;
+            margin-top: 10px;
+            justify-content: space-evenly;
+        }
+        .add_post_link a{
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: var(--color);
+            margin-right: 30px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .add_post_link a i{
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .post_container{
+            width: 100%;
+            background: var(--bg-color);
+            border-radius: 6px;
+            padding: 20px;
+            color: var(--color);
+            margin: 20px 0;
+        }
+        .user_profile span{
+            font-size: 13px;
+            color: var(--color);
+        }
+        .post_text{
+            color: var(--color);
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        .post_text span{
+            color: var(--color);
+            font-weight: bold;
+        }
+        .post_text a{
+            color: #1876f2;
+            text-decoration: none;
+        }
+        .post_img{
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        .post_row{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .activity_icons div i{
+            font-size: 28px;
+            margin-right: 10px;
+        }
+        .activity_icons div{
+            display: inline-flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+        .post_profile_icon{
+            display: flex;
+            align-items: center;
+        }
+        .post_profile_icon img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .post_row a{
+            color: var(--color);
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        .lode_more_btn{
+            display: block;
+            margin: auto;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid #9a9a9a;
+            color: var(--color);
+            background: transparent;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .footer{
+            text-align: center;
+            color: var(--color);
+            padding: 10px 0 20px;
+            font-size: 15px;
+        }
+        .setting_menu{
+            position: absolute;
+            width: 90%;
+            max-width: 350px;
+            background: var(--bg-color);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            border-radius: 4px;
+            overflow: hidden;
+            top: 105%;
+            right: 4%;
+            max-height: 0;
+            transition: max-height 0.3s;
+        }
+        .setting_menu_height{
+            max-height: 450px;
+        }
+        .user_profile a{
+            font-size: 14px;
+            color: #1876f2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .user_profile p{
+            color: var(--color);
+        }
+        .setting_menu_inner{
+            padding: 20px;
+        }
+        .setting_menu_inner hr{
+            border: 0;
+            height: 1px;
+            background: #9a9a9a;
+            margin: 15px 0px;
+        }
+        .feedback i{
+            font-size: 27px;
+            color: black;
+            margin-right: 15px;
+            margin-left: 5px;
+        }
+        .feedback_bg{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgb(216, 216, 216);
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+        }
+        .setting_links{
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .setting_links i{
+            font-size: 30px;
+            margin-right: 15px;
+            margin-left: 5px;
+            text-align: center;
+            left: 35px;
+        }
+        .setting_icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgb(216, 216, 216);
+        }
+        .setting_links a{
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            justify-content: space-between;
+            flex: 1;
+            color: var(--color);
+            font-weight: bold;
+        }
+        .setting_links a i{
+            font-size: 12px;
+            font-weight: bolder;
+        }
+        #dark_btn{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgb(190, 186, 186);
+            width: 45px;
+            border-radius: 42px;
+            padding: 4px 3px;
+            cursor: pointer;
+            display: flex;
+            transition: padding-left 0.5s, background 0.5s;
+        }
+        #dark_btn span{
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            display: inline-block;
+            /* align-items: center; */
+        }
+        #dark_btn.dark_btn_on{
+            padding-left: 23px;
+            background: #0a0a0a;
+        }
+        
+
+        
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav_left">
+            <i class="fa-brands fa-slack" class="logo"></i>
+            <ul>
+                <li><i class="fa-solid fa-bell"></i></li>
+                <li><i class="fa-solid fa-envelope"></i></li>
+                <li><i class="fa-solid fa-video"></i></li>
+            </ul>
+        </div>
+        <div class="nav_right">
+            <div class="searchbox">
+                <i class="fa-brands fa-searchengin"></i>
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="usericon online" onclick="showMenuToggeled()">
+                <img src="https://cdn.pixabay.com/photo/2014/07/31/22/50/photographer-407068_640.jpg" alt="">
+            </div>
+        </div>
+        <!-- setting_menu -->
+        <div class="setting_menu">
+
+            <div id="dark_btn" onclick="initializeDarkMode()">
+                <span></span>
+            </div>
+
+            <div class="setting_menu_inner">
+                <div class="user_profile">
+                    <img src="https://cdn.pixabay.com/photo/2014/07/31/22/50/photographer-407068_640.jpg" alt="">
+                    <div>
+                        <p>Jenny Mayer</p>
+                        <a href="#">See Your Profile</a>
+                    </div>
+                </div>
+
+                <hr>
+    
+                <div class="user_profile feedback">
+                    <i class="fa-solid fa-message feedback_bg"></i>
+                    <div>
+                        <p>Give Feedback</p>
+                        <a href="#">Help Us To Improve The New Design</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="setting_links">
+                    <i class="fa-solid fa-gear setting_icon"></i>
+                    <a href="#">Setting & Privacy <i class="fa-solid fa-greater-than"></i></a>
+                </div>
+                <div class="setting_links">
+                    <i class="fa-solid fa-circle-question setting_icon"></i>
+                    <a href="#">Help & Support <i class="fa-solid fa-greater-than"></i></a>
+                </div>
+                <div class="setting_links">
+                    <i class="fa-solid fa-moon setting_icon"></i>
+                    <a href="#">Display & Accessibility <i class="fa-solid fa-greater-than"></i></i></a>
+                </div>
+                <div class="setting_links">
+                    <i class="fa-solid fa-right-from-bracket setting_icon"></i>
+                    <a href="#">Log Out <i class="fa-solid fa-greater-than"></i></a>
+                </div>
+            </div>
+        </div>
+        </nav>
+
+    <div class="container">
+        <!-- left_side_bar -->
+        <div class="left_side_bar">
+            <div class="imp_link">
+                <a href="#"><i class="fa-solid fa-newspaper imp_link_bg"></i>Latest News</a>
+                <a href="#"><i class="fa-solid fa-user-group imp_link_bg"></i>Friends</a>
+                <a href="#"><i class="fa-solid fa-people-group imp_link_bg"></i>Groups</a>
+                <a href="#"><i class="fa-solid fa-store imp_link_bg"></i>Marketplace</a>
+                <a href="#"><i class="fa-solid fa-play imp_link_bg"></i>Watch</a>
+                <a href="#">See More</a>
+            </div>
+            <div class="shortcut_link">
+                <p>Your Shortcuts</p>
+                <a href="#"><img src="https://cdn.pixabay.com/photo/2021/08/04/13/06/software-developer-6521720_640.jpg" alt="">Web Developer</a>
+                <a href="#"><img src="https://cdn.pixabay.com/photo/2018/05/18/15/30/web-design-3411373_640.jpg" alt="">Web Designer</a>
+                <a href="#"><img src="https://cdn.pixabay.com/photo/2019/01/30/07/45/web-3963945_1280.jpg" alt="">Website Expert</a>
+                <a href="#"><img src="https://cdn.pixabay.com/photo/2021/03/07/18/52/influencer-6077247_1280.jpg" alt="">Social Media Influencer</a>
+            </div>
+        </div>
+        <!-- main_content -->
+        <div class="main_content">
+            <div class="story_gallery">
+                <div class="story story1">
+                    <i class="fa-solid fa-circle-plus"></i>
+                    <p>Post Story</p>
+                </div>
+                <div class="story story2">
+                    <img src="https://cdn.pixabay.com/photo/2015/07/09/00/29/woman-837156_640.jpg" alt="">
+                    <p>Janney Mayer</p>
+                </div>
+                <div class="story story3">
+                    <img src="https://cdn.pixabay.com/photo/2018/01/13/19/39/fashion-3080644_640.jpg" alt="">
+                    <p>Joey Allen</p>
+                </div>
+                <div class="story story4">
+                    <img src="https://cdn.pixabay.com/photo/2017/01/23/19/40/woman-2003647_640.jpg" alt="">
+                    <p>Post Story</p>
+                </div>
+                <div class="story story5">
+                    <img src="https://cdn.pixabay.com/photo/2017/04/03/10/42/woman-2197947_640.jpg" alt="">
+                    <p>Lili Lipha</p>
+                </div>
+            </div>
+
+            <div class="write_post_container">
+                <div class="user_profile">
+                    <img src="https://cdn.pixabay.com/photo/2014/07/31/22/50/photographer-407068_640.jpg" alt="">
+                    <div>
+                        <p>Jenny Mayer</p>
+                        <small>Public <i class="fa-sharp fa-solid fa-caret-down"></i></small>
+                    </div>
+                </div>
+
+                <div class="post_input_container">
+                    <textarea rows="3" placeholder="Express Your Thought Here!"></textarea>
+                    <div class="add_post_link">
+                        <a href="#"><i class="fa-solid fa-video" style="color: greenyellow;"></i> Live Video</a>
+                        <a href="#"><i class="fa-solid fa-image" style="color: red;"></i> Photo | Video</a>
+                        <a href="#"><i class="fa-solid fa-face-smile" style="color: rgb(238, 238, 13);"></i> Activity</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="https://cdn.pixabay.com/photo/2014/07/31/22/50/photographer-407068_640.jpg" alt="">
+                        <div>
+                            <p>Jenny Mayer</p>
+                            <span>May 07 2023 | 12:05 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa-sharp fa-solid fa-ellipsis-v"></i></a>
+                </div>
+                <p class="post_text">This is my new <span>social media website framework</span>. I think you would like it. and in future we will come with lots of new project. <a href="#">#thankspw</a> <a href="#">#hardwork</a></p>
+                <img src="https://cdn.pixabay.com/photo/2019/06/19/07/13/email-4284157_640.png" alt="" class="post_img">
+
+                <div class="post_row">
+                    <div class="activity_icons">
+                        <div><i class="fa-solid fa-heart" style="color: blue;"></i> 100</div>
+                        <div><i class="fa-solid fa-comments"></i> 200</div>
+                        <div><i class="fa-solid fa-share"></i> 150</div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="https://cdn.pixabay.com/photo/2021/04/03/02/21/fashion-6146328_640.jpg" alt=""> <i class="fa-sharp fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="https://cdn.pixabay.com/photo/2019/06/02/17/33/woman-4246954_640.jpg" alt="">
+                        <div>
+                            <p>Joey Allen</p>
+                            <span>May 08 2023 | 12:08 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa-sharp fa-solid fa-ellipsis-v"></i></a>
+                </div>
+                <p class="post_text">This is my new <span>social media website framework</span>. I think you would like it. and in future we will come with lots of new project. <a href="#">#thankspw</a> <a href="#">#hardwork</a></p>
+                <img src="https://cdn.pixabay.com/photo/2016/11/23/18/21/woman-1854204_640.jpg" alt="" class="post_img">
+
+                <div class="post_row">
+                    <div class="activity_icons">
+                        <div><i class="fa-solid fa-heart"></i> 100</div>
+                        <div><i class="fa-solid fa-comments"></i> 200</div>
+                        <div><i class="fa-solid fa-share"></i> 150</div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="https://cdn.pixabay.com/photo/2019/06/02/17/33/woman-4246954_640.jpg" alt=""> <i class="fa-sharp fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="https://cdn.pixabay.com/photo/2016/03/27/21/33/woman-1284347_640.jpg" alt="">
+                        <div>
+                            <p>Oliva Hola</p>
+                            <span>May 08 2023 | 12:08 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa-sharp fa-solid fa-ellipsis-v"></i></a>
+                </div>
+                <p class="post_text">This is my new <span>social media website framework</span>. I think you would like it. and in future we will come with lots of new project. <a href="#">#thankspw</a> <a href="#">#hardwork</a></p>
+                <img src="https://cdn.pixabay.com/photo/2016/03/27/21/33/woman-1284347_640.jpg" alt="" class="post_img">
+
+                <div class="post_row">
+                    <div class="activity_icons">
+                        <div><i class="fa-solid fa-heart"></i> 100</div>
+                        <div><i class="fa-solid fa-comments"></i> 200</div>
+                        <div><i class="fa-solid fa-share"></i> 150</div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="https://cdn.pixabay.com/photo/2016/03/27/21/33/woman-1284347_640.jpg" alt=""> <i class="fa-sharp fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="https://cdn.pixabay.com/photo/2021/04/24/11/43/ao-dai-6203939_640.jpg" alt="">
+                        <div>
+                            <p>Lili Lipha</p>
+                            <span>May 08 2023 | 12:08 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa-sharp fa-solid fa-ellipsis-v"></i></a>
+                </div>
+                <p class="post_text">This is my new <span>social media website framework</span>. I think you would like it. and in future we will come with lots of new project. <a href="#">#thankspw</a> <a href="#">#hardwork</a></p>
+                <img src="https://cdn.pixabay.com/photo/2013/08/05/06/19/butterfly-169924_640.jpg" alt="" class="post_img">
+
+                <div class="post_row">
+                    <div class="activity_icons">
+                        <div><i class="fa-solid fa-heart"></i> 100</div>
+                        <div><i class="fa-solid fa-comments"></i> 200</div>
+                        <div><i class="fa-solid fa-share"></i> 150</div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="https://cdn.pixabay.com/photo/2021/04/24/11/43/ao-dai-6203939_640.jpg" alt=""> <i class="fa-sharp fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="https://cdn.pixabay.com/photo/2019/09/26/15/46/woman-4506318_640.jpg" alt="">
+                        <div>
+                            <p>Stell Forest</p>
+                            <span>May 08 2023 | 12:08 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa-sharp fa-solid fa-ellipsis-v"></i></a>
+                </div>
+                <p class="post_text">This is my new <span>social media website framework</span>. I think you would like it. and in future we will come with lots of new project. <a href="#">#thankspw</a> <a href="#">#hardwork</a></p>
+                <img src="https://cdn.pixabay.com/photo/2019/02/04/12/14/lady-3974502_640.jpg" alt="" class="post_img">
+
+                <div class="post_row">
+                    <div class="activity_icons">
+                        <div><i class="fa-solid fa-heart"></i> 100</div>
+                        <div><i class="fa-solid fa-comments"></i> 200</div>
+                        <div><i class="fa-solid fa-share"></i> 150</div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="https://cdn.pixabay.com/photo/2019/09/26/15/46/woman-4506318_640.jpg" alt=""> <i class="fa-sharp fa-solid fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="lode_more_btn">Load More</button>
+
+        </div>
+        <!-- right_side_bar -->
+        <div class="right_side_bar">
+            <div class="side_bar_title">
+                <h4>Events</h4>
+                <a href="#">See All</a>
+            </div>
+
+            <div class="event">
+                <div class="left_event">
+                    <h3>07</h3>
+                    <span>May</span>
+                </div>
+                <div class="right_event">
+                    <h4>SMO Meetup</h4>
+                    <p><i class="fa-solid fa-location-dot"></i>Luxa Road, Varanasi</p>
+                    <a href="#">More Info</a>
+                </div>
+            </div>
+            <div class="event">
+                <div class="left_event">
+                    <h3>04</h3>
+                    <span>March</span>
+                </div>
+                <div class="right_event">
+                    <h4>SEO Meetup</h4>
+                    <p><i class="fa-solid fa-location-dot"></i>Nai Sadak, Varanasi</p>
+                    <a href="#">More Info</a>
+                </div>
+            </div>
+            <div class="side_bar_title">
+                <h4>Advertisement</h4>
+                <a href="#">Close</a>
+            </div>
+            <img src="https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_1280.jpg" class="sidebar_ads">
+            <div class="side_bar_title">
+                <h4>Conversation</h4>
+                <a href="#">Hide Chat</a>
+            </div>
+
+            <div class="online_list">
+                <div class="online">
+                    <img src="https://cdn.pixabay.com/photo/2016/03/23/04/01/woman-1274056_1280.jpg" alt="">
+                </div>
+                <p>Jenny Mayer</p>
+            </div>
+            <div class="online_list">
+                <div class="online">
+                    <img src="https://cdn.pixabay.com/photo/2015/05/31/13/40/book-791824_640.jpg" alt="">
+                </div>
+                <p>Joey Allen</p>
+            </div>
+            <div class="online_list">
+                <div class="online">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/14/03/11/geisha-1822467_640.jpg" alt="">
+                </div>
+                <p>Lili Lipha</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Copyright 2023 - Satyam First Website Frame</p>
+    </div>
+
+    <script>
+        let settingmenu = document.querySelector('.setting_menu');
+        let dark_btn = document.getElementById('dark_btn')
+
+        function showMenuToggeled() {
+            settingmenu.classList.toggle('setting_menu_height')
+        }
+
+        function initializeDarkMode() {
+            dark_btn.classList.toggle('dark_btn_on');
+            document.body.classList.toggle('dark_theme')  
+        }
+
+        if (condition) {
+            
+        }
+
+        localStorage.setItem('theme', 'dark')
+        localStorage.getItem('dark')
+    </script>
+</body>
+</html>
+
