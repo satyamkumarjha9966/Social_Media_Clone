@@ -21,3 +21,9 @@ The clone will be designed with responsiveness in mind. It will be accessible an
 
 ## Simplicity: 
 The focus of this project is on the front-end design, not the back-end functionality. Therefore, no server-side scripting or dynamic content will be incorporated. The objective is to keep the project simple, straightforward, and easy to understand for learners and contributors.
+
+![screencapture-file-C-Users-ASUS-Downloads-Full-stack-web-development-PW-Java-Script-Projects-YT-Social-Media-App-html-2023-08-03-00_55_28](https://github.com/satyamkumarjha9966/Social_Media_Clone/assets/123254088/2f4d5e52-62be-458d-b95d-138722d2c05c)
+
+
+
+
